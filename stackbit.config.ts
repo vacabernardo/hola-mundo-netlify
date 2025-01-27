@@ -1,27 +1,31 @@
-import { defineStackbitConfig } from "@stackbit/types";
-import { GitContentSource } from "@stackbit/cms-git";
+import { defineStackbitConfig, DocumentUrlPath } from '@stackbit/types';
+import { GitContentSource } from '@stackbit/cms-git';
 
 export default defineStackbitConfig({
     stackbitVersion: "~0.6.0",
     ssgName: "custom",
-    buildCommand: "echo 'No build required'",
-    publishDir: ".",
+    nodeVersion: '18',
     contentSources: [
         new GitContentSource({
             rootPath: __dirname,
-            contentDirs: ["content"],
-            models: [
-                {
-                    name: "Page",
-                    type: "page",
-                    urlPath: "/{slug}",
-                    filePath: "content/pages/{slug}.md",
+            contentDirs: ['content'],
+            assets: {
+                referenceType: 'static',
+                staticDir: 'public',
+                uploadDir: 'images',
+                publicPath: '/'
+            },
+            models: {
+                page: {
+                    type: 'page',
+                    urlPath: '/{slug}',
                     fields: [
-                        { name: "title", type: "string", required: true },
-                        { name: "content", type: "markdown", required: true }
+                        { type: 'string', name: 'title', required: true },
+                        { type: 'string', name: 'description' },
+                        { type: 'markdown', name: 'content' }
                     ]
                 }
-            ],
+            }
         })
     ]
 });
