@@ -1,31 +1,41 @@
-import { defineStackbitConfig, DocumentUrlPath } from '@stackbit/types';
-import { GitContentSource } from '@stackbit/cms-git';
+import { defineStackbitConfig } from '@stackbit/types';
 
 export default defineStackbitConfig({
     stackbitVersion: "~0.6.0",
     ssgName: "custom",
     nodeVersion: '18',
     contentSources: [
-        new GitContentSource({
-            rootPath: __dirname,
-            contentDirs: ['content'],
-            assets: {
-                referenceType: 'static',
-                staticDir: 'public',
-                uploadDir: 'images',
-                publicPath: '/'
-            },
-            models: {
-                page: {
-                    type: 'page',
-                    urlPath: '/{slug}',
-                    fields: [
-                        { type: 'string', name: 'title', required: true },
-                        { type: 'string', name: 'description' },
-                        { type: 'markdown', name: 'content' }
-                    ]
+        {
+            name: 'content',
+            handler: '@stackbit/cms-git',
+            options: {
+                rootPath: __dirname,
+                contentDirs: ['content'],
+                models: {
+                    page: {
+                        type: 'page',
+                        urlPath: '/{slug}',
+                        fields: [
+                            { type: 'string', name: 'title', required: true, default: 'Nueva Página' },
+                            { type: 'string', name: 'description', default: 'Descripción de la página' },
+                            { type: 'markdown', name: 'content', default: 'Contenido de la página' }
+                        ]
+                    }
                 }
             }
-        })
+        }
+    ],
+    presets: [
+        {
+            label: 'Default',
+            models: [{
+                type: 'page',
+                urlPath: '/{slug}',
+                fields: [
+                    { type: 'string', name: 'title' },
+                    { type: 'markdown', name: 'content' }
+                ]
+            }]
+        }
     ]
 });
