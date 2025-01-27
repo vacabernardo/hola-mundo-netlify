@@ -1,0 +1,27 @@
+stackbitVersion: ~0.5.0
+ssgName: custom
+buildCommand: echo "No build required"
+publishDir: .
+
+models:
+  page:
+    type: page
+    label: Page
+    fields:
+      - type: string
+        name: title
+        label: Title
+        required: true
+      - type: string
+        name: description
+        label: Description
+      - type: markdown
+        name: content
+        label: Content
+
+pagesDir: .
+assets:
+  referenceType: static
+  staticDir: .
+  uploadDir: images
+  publicPath: /
