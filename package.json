@@ -1,0 +1,19 @@
+{
+  "name": "hola-mundo-netlify",
+  "version": "1.0.0",
+  "description": "Sitio web básico con Stackbit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@stackbit/cms-git": "^0.3.0",
+    "@stackbit/types": "^0.10.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
